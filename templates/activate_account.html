@@ -1,0 +1,18 @@
+
+{% autoescape off %}
+
+
+Hi Admin,
+
+A new User has been registered on WFI Worklflow System and requires your approval to Activate their account.
+Please use the link below to Activate the Account for: {{user.first_name}} {{user.last_name}} (Username: {{user.username}}).
+
+Activate Account: http://{{domain}}{% url 'activate_account' uidb64=uid token=token%}
+
+To manage user accounts, you can login into the Admin panel using the following link:
+
+Admin Panel: http://{{domain}}/admin
+
+
+
+{% endautoescape %}

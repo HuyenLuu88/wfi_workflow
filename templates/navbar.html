@@ -1,0 +1,101 @@
+
+{% url 'home' as home %}
+{% url 'tasks' as tasks %}
+{% url 'portfolios' as portfolios %}
+{% url 'knowledgebase' as knowledgebase %}
+
+
+<div class="nav-container1">
+    <nav class="navbar1">
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-menu1">
+            <li><a href="{% url 'home' %}" class="nav-links1 {% if request.path == home %} active {% endif %}">Dashboard</a></li>
+            <li><a href="{% url 'tasks' %}" class="nav-links1 {% if request.path == tasks %} active {% endif %}">Tasks</a></li>
+            <li><a href="{% url 'portfolios' %}" class="nav-links1 {% if request.path == portfolios %} active {% endif %}">Portfolios</a></li>
+            <li><a href="{% url 'knowledgebase' %}" class="nav-links1 {% if request.path == knowledgebase %} active {% endif %}">Knowledge Base</a></li>
+{#            <li><a href="{% url 'logout' %}" class="nav-links nav-links-btn">Logout</a></li>#}
+        </ul>
+{#        <div class="search-box">#}
+{#        <input type="text" class="search" placeholder="Search.."/>#}
+{#        <button type="submit" class="search-btn">#}
+{#            <i class="fa fa-search"></i>#}
+{#        </button>#}
+{#          <span class="user">User: {{request.user}}</span>#}
+{#        </div>#}
+    </nav>
+
+<nav-2>
+         <label for="btn" class="drop-button">{{ user.username }}
+         <span class="fas fa-angle-down"></span>
+         </label>
+
+         <input type="checkbox" id="btn" class="visually-hidden">
+         <ul class="menu">
+
+            <li class ="sub-menu-1"><i class="far fa-user"></i> {{ user.first_name }} {{ user.last_name }}</li>
+            <li class ="sub-menu-1"><i class="far fa-envelope"></i> {{ user.email }}</li>
+
+            <li><a href="{% url 'account' %}"><i class="fas fa-cog"></i></i> Account Settings</a></li>
+{#            <li>#}
+{#               <label for="btn-2" class="first">Features#}
+{#               <span class="fas fa-caret-down"></span>#}
+{#               </label>#}
+{#               <input type="checkbox" id="btn-2">#}
+{#               <ul>#}
+{#                  <li><a href="#">Pages</a></li>#}
+{#               </ul>#}
+{#            </li>#}
+{#            <li>#}
+{#               <label for="btn-3" class="second">Services#}
+{#               <span class="fas fa-caret-down"></span>#}
+{#               </label>#}
+{#               <input type="checkbox" id="btn-3">#}
+{#               <ul>#}
+{#                  <li><a href="#">Web Design</a></li>#}
+{#                  <li><a href="#">App Design</a></li>#}
+{#               </ul>#}
+            </li>
+            <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></i> Sign Out</a></li>
+{#            <li><a href="#">Feedback</a></li>#}
+         </ul>
+
+
+      </nav-2>
+
+
+<nav3>
+    <div class="navbar3">
+      <div class="search-box">
+        <i class='bx bx-search'></i>
+        <div class="input-box">
+          <input type="text" placeholder="Search...">
+        </div>
+      </div>
+
+    </div>
+  </nav3>
+{% load static %}
+<script src="{% static 'js/script.js' %}"></script>
+
+
+
+
+</div>
+
+      <!-- This code used to rotate drop icon(-180deg).. -->
+      <script>
+         $('nav-2 .drop-button').click(function(){
+           $('nav-2 .drop-button span').toggleClass("rotate");
+         });
+           $('nav-2 ul li .first').click(function(){
+             $('nav-2 ul li .first span').toggleClass("rotate");
+           });
+           $('nav-2 ul li .second').click(function(){
+             $('nav-2 ul li .second span').toggleClass("rotate");
+           });
+      </script>

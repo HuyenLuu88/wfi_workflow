@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: black;
+}
+
+.flex-container {
+  display: flex;
+  margin:5px;
+}
+.row {
+  margin: 5px;
+}
+.box {
+  width: 50%;
+  background: green;
+  padding: 10px;
+  border: 1px solid #000;
+}
+
+.main{
+  height: 500px;
+  width:500px;
+  background-color: white;
+}
+
+.sub-container{
+  height: 350px;
+  background-color: red;
+  border: 1px solid black;
+  margin: 10px
+}
+
+.two-fields{
+  height:50px;
+  background-color:yellow;
+  border: 1px solid black;
+  margin: 10px
+}
+
+.field{
+  background-color:green;
+  margin: 10px
+}
+
+</style>
+
+
+</head>
+<body>
+<div id="main" class="grid">
+  <div class="row">
+    <div class="flex-container">
+      <div class="box">
+        1
+      </div>
+      <div class="box">
+        2
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="box">
+        3
+      </div>
+      <div class="box">
+        4
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="box">
+        5
+      </div>
+      <div class="box">
+        6
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="flex-container">
+      <div class="box">
+        1
+      </div>
+      <div class="box">
+        2
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="box">
+        1
+      </div>
+      <div class="box">
+        2
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

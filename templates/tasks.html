@@ -1,0 +1,154 @@
+{%  extends 'main.html' %}
+{% load static %}
+{% load myfilters %}
+{% block title %}Tasks{% endblock %}
+
+
+
+
+{% block breadcrumb %}
+
+<div class="breadcrumb1-container">
+
+ {% include 'breadcrumb_home.html' %}
+
+        <ul class="breadcrumb1">
+      <li class="breadcrumb1--item">
+      </li>
+      <li class="breadcrumb1--item active">Tasks</li>
+    </ul>
+
+ </div>
+
+{% endblock breadcrumb %}
+
+
+{%  block content %}
+
+<h1 class ="headers">Tasks</h1>
+
+
+
+     <p class ="form_headers">My Tasks</p>
+
+{% if account.count == 1 %}
+    <p class ="main-para">You have {{account.count}} portfolio loaded on your account.</p>
+{% else %}
+    <p class ="main-para">You have {{account.count}} portfolios loaded on your account.</p>
+{% endif %}
+{#{{ account.name }}#}
+{#    initial_count = models.IntegerField(blank=True, null=True)#}
+{#    update_count = models.IntegerField(blank=True, null=True)#}
+{#    total_count = models.IntegerField(blank=True, null=True)#}
+{#    valid_count = models.IntegerField(blank=True, null=True)#}
+{#    invalid_count = models.IntegerField(blank=True, null=True)#}
+
+
+{% if account.count == 0 %}
+
+
+{% else %}
+    <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Task</th>
+					<th>Desc</th>
+{#					<th>Created</th>#}
+{#					<th>Updated</th>#}
+{#                    <th>Deadline</th>#}
+{#					<th>Comments</th>#}
+{#                    <th>Initial</th>#}
+{#					<th>Update</th>#}
+{#					<th>Valid</th>#}
+{#                    <th>Invalid</th>#}
+{#                    <th>Total</th>#}
+{#                    <th>ISIN</th>#}
+{#                    <th>USCODE</th>#}
+{#                    <th>SEDOL</th>#}
+                    <th></th>
+                    <th></th>
+                    <th></th>
+				</tr>
+
+				{% for item in wca_feed %}
+
+				<tr>
+					<td>{{item.name}}</td>
+                    <td>{{item.desc}}</td>
+{% comment %}                    <td>{{item.created|date:"d/m/Y" }}</td>
+                    <td>{{item.updated|date:"d/m/Y" }}</td>
+                    <td>{{item.deadline_date|date:"d/m/Y" }}</td>
+                    <td>{{item.comments}}</td>
+                    <td>{{item.initial_count}}</td>
+                    <td>{{item.update_count}}</td>
+                    <td>{{item.valid_count}}</td>
+                    <td>{{item.invalid_count}}</td>
+                    <td>{{item.total_count}}</td>{% endcomment %}
+{#                    <td>{{item.isin_count}}</td>#}
+{#                    <td>{{item.uscode_count}}</td>#}
+{#                    <td>{{item.sedol_count}}</td>#}
+                    <td style="width:10px;"><a class="view_btn" href="{% url 'portfolio' item.id %}">View</a></td>
+					<td style="width:106px;"><a class="update_btn" href="{% url 'portfolio' item.id %}"><i class="fas fa-pen"></i> Update</a></td>
+                    <td style="width:10px;"><a class="delete_btn" onclick="return confirm('Are you sure?');" href="{% url 'delete_portfolio' item.id %}">Delete</a></td>
+
+
+
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{#  {% include 'pagination.html' with page=posts %}#}
+
+{% endif %}
+
+
+
+{% if wca_feed.has_other_pages %}
+
+{#<nav aria-label="Page navigation example">#}
+  <ul class="pagination">
+    {% if wca_feed.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ wca_feed.previous_page_number }}">Previous</a></li>
+    {% else %}
+{#      <li class="disabled"><span>Previous</span></li>#}
+    {% endif %}
+    {% for i in wca_feed.paginator.page_range %}
+      {% if wca_feed.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if wca_feed.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ wca_feed.next_page_number }}">Next</a></li>
+    {% else %}
+{#      <li class="disabled"><span>Next</span></li>#}
+    {% endif %}
+  </ul>
+{#</nav>#}
+{% endif %}
+
+<br><br>
+
+
+
+
+
+
+<br><br>
+
+
+
+
+
+
+
+
+{%  endblock %}
+

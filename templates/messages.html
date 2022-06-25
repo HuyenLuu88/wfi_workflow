@@ -1,0 +1,57 @@
+{% if messages %}
+    {% for message in messages %}
+
+{#        {% if attempt_count < 3 and "reCAPTCHA" in message|safe %}#}
+{##}
+{#         {% endif %}#}
+
+
+        {% if message.tags == 'info' %}
+            <p class="messages_info">{{ message }}</p>
+        {% endif %}
+
+
+
+        {% if message.tags == 'error' and form2.code %}
+            <p class="errorlist2">{{ message }}</p>
+{#            <span class="errorlist">{{ message }}</span>#}
+         {% elif message.tags == 'error' %}
+            <p class="errorlist">{{ message }}</p>
+{#            <span class="errorlist">{{ message }}</span>#}
+        {% endif %}
+
+
+
+
+        {% if message.tags == 'success' %}
+            <p class="messages_success ">{{ message }}</p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if form.errors %}
+        {% for error in form.username.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+        {% for error in form.first_name.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+        {% for error in form.last_name.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+        {% for error in form.email.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+        {% for error in form.password.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+    {% for error in form.password2.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+
+
+{% if wizard.form.non_field_errors %}
+    <span class="errorlist">{{ wizard.form.non_field_errors }}</span>
+{% endif %}
+

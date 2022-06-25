@@ -1,0 +1,543 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% load myfilters %}
+{% block title %}Identifiers{% endblock %}
+
+
+
+
+{% block breadcrumb %}
+
+
+
+    <div class="breadcrumb1-container">
+
+        {% include 'breadcrumb_home.html' %}
+
+        <ul class="breadcrumb1">
+            <li class="breadcrumb1--item">
+            </li>
+
+            <li class="breadcrumb1--item">
+                <a href="{% url 'portfolios' %}" class="breadcrumb1--link">Portfolios</a>
+            </li>
+            <li class="breadcrumb1--item active">{{ portfolio.name }}</li>
+        </ul>
+    </div>
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'stylesheets/jquery.dataTables.css' %}" type="text/css"/>
+
+    <h1 class="headers">{{ portfolio.name }}</h1>
+
+
+
+
+    <p class="form_headers">Summary</p>
+
+
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table1">
+                <tr>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>Initial</th>
+                    <th>Update</th>
+                    <th>Valid</th>
+                    <th>Invalid</th>
+                    <th>Total</th>
+                    <th>ISIN</th>
+                    <th>USCODE</th>
+                    <th>SEDOL</th>
+                    <th>Action</th>
+
+                </tr>
+
+                <tr>
+                    <td>{{ portfolio.created|date:"d/m/Y" }}</td>
+                    <td>{{ portfolio.updated|date:"d/m/Y" }}</td>
+                    <td>{{ portfolio.initial }}</td>
+                    <td>{{ portfolio.update }}</td>
+                    <td>{{ portfolio.valid }}</td>
+                    <td>{{ portfolio.invalid }}</td>
+                    <td>{{ portfolio.total }}</td>
+                    <td>{{ portfolio.isin_count }}</td>
+                    <td>{{ portfolio.uscode_count }}</td>
+                    <td>{{ portfolio.sedol_count }}</td>
+                    {#					<td style="width:106px;"><a class="update_btn" href="{% url 'portfolio' portfolio.id %}"><i class="fas fa-pen"></i> Update</a></td>#}
+                    <td><a class="btn btn-danger" onclick="return confirm('Are you sure?');"
+                           href="{% url 'delete_portfolio' portfolio.id %}">Delete</a></td>
+
+                    {#<button type="button" class="btn btn-danger">Delete</button>#}
+
+                    {#					<td>{{order.note}}</td>#}
+                    {#					<td>{{order.date_created}}</td>#}
+                    {#					<td>{{order.status}}</td>#}
+                    {#					<td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>#}
+                    {##}
+                    {#					<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>#}
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <p class="form_headers">Identifiers</p>
+
+    <div class="container">
+
+
+        <!-- New  button -->
+        <div class="text-center">
+            <button type="button" data-dismiss="modal" class="btn btn-primary" id="new">Add Identifier</button>
+        </div>
+
+        <!-- datatables -->
+        <table id="datatables" class="table table-hover">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>ID</th>
+                <th>Identifier</th>
+                <th>Identifier Type</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Valid</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+
+            </tr>
+            </tfoot>
+        </table>
+
+        <div>
+            <div style="display: flex;justify-content: center;">
+                <button type="button" data-dismiss="modal" class="btn btn-info" id="chk_all" style="margin-right: 10px">Select All</button>
+                <button type="button" data-dismiss="modal" class="btn btn-info" id="bulkEdit" style="margin-right: 10px">Bulk Edit</button>
+                <button type="button" data-dismiss="modal" class="btn btn-danger" id="bulkDelete">Bulk Delete</button>
+            </div>
+        </div>
+        <!-- NEW and EDIT Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal_title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="bulkEditTable" class="table table-hover table-bordered" style="margin: 0!important;" hidden>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Identifier</th>
+                                    <th>Identifier Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <label for="code"><span class="glyphicon glyphicon-pencil"></span> Code</label>
+                            <input type="text" class="form-control" id="code" name="code" placeholder="Enter Code"
+                                   required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="code_type"><span class="glyphicon glyphicon-file"></span> Code Type</label>
+                            <input type="text" class="form-control" id="code_type" name="code_type"
+                                   placeholder="Enter Code Type" required="true">
+                        </div>
+                        <input type="hidden" id="type" name="type" value="">
+                        <button type="submit" data-dismiss="modal" class="btn btn-success btn-block" id="update"><span
+                                class="glyphicon glyphicon-ok"></span> OK
+                        </button>
+                        <button  hidden type="submit" data-dismiss="modal" class="btn btn-success btn-block" id="bulkUpdate"><span
+                                class="glyphicon glyphicon-ok"></span> OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="confirm" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Are you sure?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <button type="submit" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+                        {#                    <button style="width:10px;"><a class="delete_btn" onclick="return confirm('Are you sure?');" href="{% url 'delete_identifier' portfolio.id %}">Delete</a></button>#}
+
+                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#<script src="{% static 'js/jquery.min.js' %}"></script>#}
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        {#<script src="{% static 'js/jquery.dataTables.js' %}"></script>#}
+
+        {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/rr-1.2.8/sc-2.0.6/sp-2.0.1/sl-1.4.0/datatables.min.css"/>#}
+
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+        {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/rr-1.2.8/sc-2.0.6/sp-2.0.1/sl-1.4.0/datatables.min.js"></script>#}
+
+        <script src="{% static 'js/cdnjs/datatables.min.js' %}"></script>
+        <script src="{% static 'js/jquery.cookie.js' %}"></script>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            let chk_all = false;
+            let page_id = "/portfolio/{{portfolio.id}}/json";
+
+            let table = $('#datatables').DataTable({
+                "processing": true,
+                "language": {
+                    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+                },
+                "serverSide": true,
+
+                dom: 'Blfrtip',
+                info: true,
+                "ajax": page_id,
+
+                "columnDefs": [
+                    {"searchable": false, "targets": [6]}, // Disable search on last columns
+                    {"orderable": false, "targets": [0, 6, 7]} // Disable ordering on last columns
+                ],
+
+                "columns": [
+                    {
+                        "data": null,
+                        "defaultContent": '<input type="checkbox" class="chk-id"/n>'
+                    },
+                    {"data": "id"},
+                    {"data": "code"},
+                    {"data": "code_type"},
+                    {"data": "created"},
+                    {"data": "updated"},
+                    {"data": "valid"},
+                    {
+                        "data": null,
+                        "defaultContent": '<button id="pre-update" type="button" class="btn btn-info">Edit</button>' + '&nbsp;&nbsp' +
+                            '<button id="pre-delete" type="button" class="btn btn-danger">Delete</button>'
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 5]
+                        },
+                        tableHeader: {
+                            alignment: 'center'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 5]
+                        },
+                        tableHeader: {
+                            alignment: 'center'
+                        },
+                        "action": newexportaction
+                    },
+
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 5],
+                            decodeEntities: false
+                        },
+                        tableHeader: {
+                            alignment: 'center'
+                        },
+                        "action": newexportaction
+                    }
+                ]
+            });
+
+            function newexportaction(e, dt, button, config) {
+                var self = this;
+                var oldStart = dt.settings()[0]._iDisplayStart;
+                dt.one('preXhr', function (e, s, data) {
+                    // Just this once, load all data from the server...
+                    data.start = 0;
+                    data.length = 2147483647;
+                    dt.one('preDraw', function (e, settings) {
+                        // Call the original action function
+                        if (button[0].className.indexOf('buttons-copy') >= 0) {
+                            $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+                        } else if (button[0].className.indexOf('buttons-excel') >= 0) {
+                            $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+                                $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+                                $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+                        } else if (button[0].className.indexOf('buttons-csv') >= 0) {
+                            $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+                                $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+                                $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+                        } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+                            $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+                                $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+                                $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+                        } else if (button[0].className.indexOf('buttons-print') >= 0) {
+                            $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+                        }
+                        dt.one('preXhr', function (e, s, data) {
+                            // DataTables thinks the first item displayed is index 0, but we're not drawing that.
+                            // Set the property to what it was before exporting.
+                            settings._iDisplayStart = oldStart;
+                            data.start = oldStart;
+                        });
+                        // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+                        setTimeout(dt.ajax.reload, 0);
+                        // Prevent rendering of the full data to the DOM
+                        return false;
+                    });
+                });
+                // Requery the server with the new one-time export settings
+                dt.ajax.reload();
+            }
+
+            let id = 0;
+            $('#new').on('click', function (e) {
+                $('#code').val('');
+                $('#code_type').val('');
+                $('#type').val('new');
+                $('#modal_title').text('NEW');
+                $("#myModal").modal();
+
+                $('#update').removeClass('hide');
+                $('#bulkUpdate').addClass('hide');
+
+                $('#update').click(function () {
+                    let code = $('#code').val();
+                    let code_type = $('#code_type').val();
+                    if (code == '' || code_type == '') {
+                        alert("Please input the value!");
+                        return false;
+                    }
+                    $.ajax({
+                        url: '/insert_identifier/',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            code: code,
+                            code_type: code_type,
+                            account_id: {{portfolio.id}}
+                        },
+                        headers: {
+                            'X-CSRFToken': `{{csrf_token}}`,
+                        },
+
+                        success: function (res) {
+                            if (res)
+                                table.draw();
+                                $('.table1').dataTable();
+                        }
+                    });
+                });
+            });
+
+            $('#chk_all').click(function () {
+                table.$('.chk-id').each(function (i, chk) {
+                    chk.checked = chk_all ? false : true;
+                });
+                chk_all = !chk_all;
+            });
+
+            var identifier_id;
+            table.on('click', '#pre-update', function () {
+                var row = $(this).closest('tr');
+                var data = table.row(row).data();
+                identifier_id = data['id'];
+                $('#code').val(data['code']);
+                $('#code_type').val(data['code_type']);
+                $('#type').val('edit');
+                $('#modal_title').text('EDIT: Selected ID - ' + identifier_id);
+                $("#myModal").modal();
+
+                $('#bulkEditTable').attr('hidden', true);
+                $('#bulkUpdate').addClass('hide');
+                $('#update').removeClass('hide');
+            });
+            $('#update').click(function () {
+                let url = '{% url 'update_identifier' 0 %}'.replace(0, identifier_id);
+
+                let code = $('#code').val();
+                let code_type = $('#code_type').val();
+
+                if (code == '' || code_type == '') {
+                    alert('Please input the value');
+                    return false;
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        code: code,
+                        code_type: code_type
+                    },
+                    headers: {
+                        'X-CSRFToken': `{{csrf_token}}`,
+                    },
+                    success:function(response)
+                    {
+                        table.clear();
+                        table.draw();
+                    }
+                });
+            });
+
+            table.on('click', '#pre-delete', function (e) {
+                var row = $(this).closest('tr');
+                var data = table.row(row).data();
+                identifier_id = data['id'];
+                $('#modal_title').text('DELETE: Selected-ID - ' + identifier_id );
+                $("#confirm").modal();
+            });
+            $('#delete').click(function () {
+                let url = '{% url 'delete_identifier' 0 %}'.replace(0, identifier_id);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRFToken': `{{csrf_token}}`,
+                    },
+                    success:function(response)
+                    {
+                        if (response)
+                            table.draw();
+                    }
+                });
+            });
+
+            $('#bulkEdit').click(function () {
+                var selected_rows = [];
+                table.$('.chk-id:checked').each(function (i, chk) {
+                    var row = $(chk).closest('tr');
+                    var data = table.row(row).data();
+                    selected_rows.push(data);
+                });
+                console.log(selected_rows);
+                if (selected_rows == '') {
+                    alert('Please select the data!');
+                    return false;
+                }
+
+                $('#code').val('');
+                $('#code_type').val('');
+                $('#type').val('');
+                $('#modal_title').text('EDIT');
+
+                $('#bulkEditTable').attr('hidden', false);
+                $('#update').removeClass('hide');
+                $('#bulkUpdate').addClass('hide');
+
+                var edit_ids = [];
+
+                var tbody = $('#bulkEditTable tbody');
+                var str = "";
+                selected_rows.forEach((row_val) => {
+                    str += '<tr><td>' + row_val['id'] + '</td>';
+                    str += '<td>' + row_val['code'] + '</td>';
+                    str += '<td>' + row_val['code_type'] + '</td></tr>';
+
+                    edit_ids.push(row_val['id']);
+                });
+                tbody.html(str);
+
+                $("#myModal").modal();
+                $('#update').click(function () {
+                    var code = $('#code').val();
+                    var code_type = $('#code_type').val();
+                    if (code == '' || code_type == '') {
+                        alert("Please input the value!");
+                        return false;
+                    }
+                    edit_ids = JSON.stringify(edit_ids);
+                    $.ajax({
+                        url: "{% url 'bulk_edit' %}",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            edit_ids: edit_ids,
+                            code: code,
+                            code_type: code_type
+                        },
+                        headers: {
+                            'X-CSRFToken': `{{csrf_token}}`,
+                        },
+                        success:function(response)
+                        {
+                            if (response)
+                                table.draw();
+                        }
+                    });
+                });
+
+            });
+
+            $('#bulkDelete').click(function () {
+                var selected_rows=[];
+
+                table.$('.chk-id:checked').each(function (i, chk) {
+                    var row = $(chk).closest('tr');
+                    var data = table.row(row).data();
+
+                    selected_rows.push(data['id'])
+                });
+                if (selected_rows == '') {
+                    alert('Please select the data!');
+                    return false;
+                }
+
+                $('#modal_title').text('BULK DELETE');
+                $("#confirm").modal();
+                $('#delete').click(function () {
+                   var data = JSON.stringify(selected_rows);
+                    $.ajax({
+                        url: "{% url 'bulk_delete' %}",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            'delete_ids': data
+                        },
+                        headers: {
+                            'X-CSRFToken': `{{csrf_token}}`,
+                        },
+                        success:function(response)
+                        {
+                            if (response)
+                                table.draw();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+
+{% endblock %}

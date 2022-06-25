@@ -1,0 +1,47 @@
+{% extends "two_factor/_base_focus.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="twofa_container" >
+  <h1>{% block title %}{% trans "Enable Two-Factor Authentication" %}{% endblock %}</h1>
+
+  <p class ="para">{% blocktrans trimmed %}Congratulations, you've successfully enabled two-factor
+      authentication.{% endblocktrans %}</p><br>
+
+ <p class ="para">{% blocktrans trimmed %}If you don't have any device with you when signing in to the site, you can access
+        your account using backup tokens. Generate Backup Tokens below.{% endblocktrans %}</p><br>
+
+ <p class ="para">{% blocktrans trimmed %}In the event of losing your device registered on the site, contact an Admin to
+     reset two factor authentication on your account and setup a new device of your choice.{% endblocktrans %}</p><br>
+
+
+
+  {% if not phone_methods %}
+    <p><a href="{% url 'two_factor:backup_tokens' %}"
+        class="btn btn-secondary2">{% trans "Backup Tokens" %}</a></p>
+{#<div align="center"></div>#}
+{#     <p><a href="{% url 'home' %}"#}
+{#        class="btn btn-secondary2">{% trans "Enter Site" %}</a></p>#}
+{#</div>#}
+
+
+
+
+
+  {% else %}
+    <p>{% blocktrans trimmed %}However, it might happen that you don't have access to
+      your primary token device. To enable account recovery, add a phone
+      number.{% endblocktrans %}</p>
+
+
+{#    <a href="{% url 'two_factor:profile' %}"#}
+{#        class="float-right btn btn-link">{% trans "Back to Account Security" %}</a>#}
+
+      <a href="{% url 'home' %}"
+        class="float-right btn btn-link">{% trans "Enter Site" %}</a>
+
+    <p><a href="{% url 'two_factor:phone_create' %}"
+        class="btn btn-success">{% trans "Add Phone Number" %}</a></p>
+  {% endif %}
+</div>
+{% endblock %}

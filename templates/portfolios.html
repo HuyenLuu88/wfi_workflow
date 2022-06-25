@@ -1,0 +1,456 @@
+{%  extends 'main.html' %}
+{% load static %}
+{% load myfilters %}
+{% block title %}Portfolios{% endblock %}
+
+
+
+
+{% block breadcrumb %}
+
+<div class="breadcrumb1-container">
+
+ {% include 'breadcrumb_home.html' %}
+
+        <ul class="breadcrumb1">
+      <li class="breadcrumb1--item">
+      </li>
+      <li class="breadcrumb1--item active">Portfolios</li>
+    </ul>
+
+{#    <ul class="breadcrumb">#}
+{#      <li class="breadcrumb--item">#}
+{#      </li>#}
+{#      <li class="breadcrumb--item active"><span class="breadcrumb_label">Identifiers</span></li>#}
+{##}
+{#    <li class="breadcrumb--item active"><span class="breadcrumb_label">{{portfolio.name}}</span></li>#}
+{#    </ul>#}
+ </div>
+
+{% endblock breadcrumb %}
+
+
+{%  block content %}
+
+<h1 class ="headers">Portfolios</h1>
+
+
+
+     <p class ="form_headers">My Portfolios</p>
+
+{% if account.count == 1 %}
+    <p class ="main-para">You have {{account.count}} portfolio loaded on your account.</p>
+{% else %}
+    <p class ="main-para">You have {{account.count}} portfolios loaded on your account.</p>
+{% endif %}
+{#{{ account.name }}#}
+{#    initial_count = models.IntegerField(blank=True, null=True)#}
+{#    update_count = models.IntegerField(blank=True, null=True)#}
+{#    total_count = models.IntegerField(blank=True, null=True)#}
+{#    valid_count = models.IntegerField(blank=True, null=True)#}
+{#    invalid_count = models.IntegerField(blank=True, null=True)#}
+
+
+{% if account.count == 0 %}
+
+
+{% else %}
+    <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Portfolio</th>
+					<th>Priority</th>
+					<th>Created</th>
+					<th>Updated</th>
+                    <th>Deadline</th>
+					<th>Comments</th>
+                    <th>Initial</th>
+					<th>Update</th>
+					<th>Valid</th>
+                    <th>Invalid</th>
+                    <th>Total</th>
+{#                    <th>ISIN</th>#}
+{#                    <th>USCODE</th>#}
+{#                    <th>SEDOL</th>#}
+                    <th></th>
+                    <th></th>
+                    <th></th>
+				</tr>
+
+				{% for item in portfolios %}
+
+				<tr>
+					<td>{{item.name}}</td>
+                    <td>{{item.priority}}</td>
+                    <td>{{item.created|date:"d/m/Y" }}</td>
+                    <td>{{item.updated|date:"d/m/Y" }}</td>
+                    <td>{{item.deadline|date:"d/m/Y" }}</td>
+                    <td>{{item.comments}}</td>
+                    <td>{{item.initial}}</td>
+                    <td>{{item.update}}</td>
+                    <td>{{item.valid}}</td>
+                    <td>{{item.invalid}}</td>
+                    <td>{{item.total}}</td>
+{#                    <td>{{item.isin_count}}</td>#}
+{#                    <td>{{item.uscode_count}}</td>#}
+{#                    <td>{{item.sedol_count}}</td>#}
+                    <td style="width:10px;"><a class="view_btn" href="{% url 'portfolio' item.id %}">View</a></td>
+					<td style="width:106px;"><a class="update_btn" href="{% url 'portfolio' item.id %}"><i class="fas fa-pen"></i> Update</a></td>
+                    <td style="width:10px;"><a class="delete_btn" onclick="return confirm('Are you sure?');" href="{% url 'delete_portfolio' item.id %}">Delete</a></td>
+
+
+
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{#  {% include 'pagination.html' with page=posts %}#}
+
+{% endif %}
+
+
+
+{% if portfolios.has_other_pages %}
+
+{#<nav aria-label="Page navigation example">#}
+  <ul class="pagination">
+    {% if portfolios.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ portfolios.previous_page_number }}">Previous</a></li>
+    {% else %}
+{#      <li class="disabled"><span>Previous</span></li>#}
+    {% endif %}
+    {% for i in portfolios.paginator.page_range %}
+        {% if i <= portfolios.number|add:9 and i >= portfolios.number|add:-9 %}
+      {% if portfolios.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% if portfolios.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ portfolios.next_page_number }}">Next</a></li>
+    {% else %}
+{#      <li class="disabled"><span>Next</span></li>#}
+    {% endif %}
+  </ul>
+{#</nav>#}
+{% endif %}
+
+<br><br>
+
+
+<p class ="form_headers">Create Portfolio</p>
+
+      <p class ="main-para">You can create your own custom portfolios below:</p>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+
+{#            <div class="port_container">#}
+{#            <div class="port_field">Portfolio Name:</div>#}
+{#                {{ form.name|addclass:'form_input' }}#}
+
+{#<div class="port_empty"></div>#}
+{##}
+{#<div class="port_wrapper">#}
+{#                <div class="port1">Portfolio Name:</div>#}
+{#                 <div class="port2">{{ form.name|addclass:'form_input' }}</div>#}
+{#</div>#}
+{##}
+{##}
+{#<div class="port_wrapper">#}
+{#                <div class="port1">Priority:</div>#}
+{#                 <div class="port2">{{ form.priority_type|addclass:'form_dropdown' }}</div>#}
+{#</div>#}
+{##}
+{#<div class="port_wrapper">#}
+{#                <div class="port1">Deadline:</div>#}
+{#                 <div class="port2">{{ form.deadline_date|addclass:'form_input' }}</div>#}
+{#</div>#}
+{##}
+{##}
+{##}
+{#<div class="port_wrapper">#}
+{#                <div class="port3">Comments:</div>#}
+{#                 <div class="port2">{{ form.comments|addclass:'form_textarea' }}</div>#}
+{#</div>#}
+{##}
+{##}
+{#<div class="port_wrapper2">#}
+{#                <div class="port4">Identifier Type:</div>#}
+{#                 <div class="port2">{{ form.identifier_type|addclass:'form_dropdown' }}</div>#}
+{#</div>#}
+{##}
+{##}
+{#<div class="port_wrapper3">#}
+{#                <div class="port4">Portfolio:</div>#}
+{#                 <div class="port2">{{ form.portfolio|addclass:'form_textarea' }}</div>#}
+{#</div>#}
+{##}
+{##}
+{#            </div>#}
+
+<div id="main" class="grid">
+
+  <div class="row">
+
+    <div class="flex-container">
+      <div class="box" style="line-height: 50px;">
+        Portfolio Name:
+      </div>
+      <div class="box">
+        {{ form.name|addclass:'form_input' }}
+      </div>
+    </div>
+
+    <div class="flex-container">
+      <div class="box" style="line-height: 50px;">
+        Priority:
+      </div>
+      <div class="box">
+        {{ form.priority|addclass:'form_dropdown' }}
+      </div>
+    </div>
+
+    <div class="flex-container">
+      <div class="box" style="line-height: 50px;">
+        Deadline:
+      </div>
+      <div class="box">
+        {{ form.deadline|addclass:'form_date' }}
+
+{#                <p>Deadline: {{form.deadline}}</p>#}
+{#                <input id="datepicker" type="date" name="deadline">#}
+
+{##}
+{#           <input class="form_date" type="date" />#}
+
+
+
+
+
+      </div>
+    </div>
+
+        <div class="flex-container">
+      <div class="box"  style="line-height: 150px;">
+        Comments:
+      </div>
+      <div class="box">
+{#        <textarea class="form_textarea" id="" name="" rows="6"></textarea>#}
+          {{ form.comments|addclass:'form_textarea' }}
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+      <div class="row">
+{#    <div class="flex-container">#}
+{#      <div class="box" style="line-height: 50px;">#}
+{#        Identifier Type:#}
+{#      </div>#}
+{#      <div class="box">#}
+{#        {{ form.identifier_type|addclass:'form_dropdown' }}#}
+{#      </div>#}
+{#    </div>#}
+    <div class="flex-container">
+	<div class="box"  style="line-height: 280px;">
+        Portfolio:
+      </div>
+      <div class="box">
+{#        <textarea class="form_textarea_port" id="" name="" ></textarea>#}
+          {{ form2.code|addclass:'form_textarea_port' }}
+      </div>
+    </div>
+  </div>
+
+
+<div class="upload_submit_container">
+
+ <div class="row">
+    <div class="flex-container2">
+      <div class="box2">
+          <p class="port-para"><span style="font-weight:900">Optional:</span> You can upload a tab delimited
+               (seperated) text file to contain identifiers or your portfolio as opposed to pasting
+              identifiers within the portfolio box.</p>
+
+      </div>
+    </div>
+    <div class="flex-container2">
+	<div class="box " style="line-height: 35px;">
+        File Upload:
+      </div>
+      <div class="box3">
+    <input class="port_browse_btn" type="" value="Browse File" name="browse_file">
+      </div>
+    </div>
+
+         <div class="flex-container2">
+      <div class="box3">
+    <input class="port_submit_btn" type="submit" value="Submit" name="submit">
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+  </div>
+
+
+
+        </form>
+
+{#    {% include 'messages.html' %}#}
+
+{#               {% if form2.errors %}#}
+{#    {% for error in form2.errors %}#}
+{#        <p class="messages_error">{{ error }}</p>#}
+{#    {% endfor %}#}
+{#{% endif %}#}
+
+{# <p class="acc-messages_success">{{ message }}</p>#}
+
+<br><br>
+
+
+{#<table class="table table-sm">#}
+{#<tr>#}
+{#					<th>Portfolio</th>#}
+{#					<th>Priority</th>#}
+{#					<th>Created</th>#}
+{#					<th>Updated</th>#}
+{#                    <th>Deadline</th>#}
+{#					<th>Comments</th>#}
+{#                    <th>Initial</th>#}
+{#					<th>Update</th>#}
+{#					<th>Valid</th>#}
+{#                    <th>Invalid</th>#}
+{#                    <th>Total</th>#}
+{#                    <th>ISIN</th>#}
+{#                    <th>USCODE</th>#}
+{#                    <th>SEDOL</th>#}
+{#                    <th></th>#}
+{#                    <th></th>#}
+{#                    <th></th>#}
+{#				</tr>#}
+{##}
+{#				{% for item in portfolios %}#}
+{##}
+{#				<tr>#}
+{#					<td>{{item.name}}</td>#}
+{#                    <td>{{item.priority_type}}</td>#}
+{#                    <td>{{item.created|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.updated|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.deadline_date|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.comments}}</td>#}
+{#                    <td>{{item.initial_count}}</td>#}
+{#                    <td>{{item.update_count}}</td>#}
+{#                    <td>{{item.valid_count}}</td>#}
+{#                    <td>{{item.invalid_count}}</td>#}
+{#                    <td>{{item.total_count}}</td>#}
+{#                    <td>{{item.isin_count}}</td>#}
+{#                    <td>{{item.uscode_count}}</td>#}
+{#                    <td>{{item.sedol_count}}</td>#}
+{#                    <td style="width:10px;"><a class="view_btn" href="{% url 'portfolio' item.id %}">View</a></td>#}
+{#					<td style="width:106px;"><a class="update_btn" href="{% url 'portfolio' item.id %}"><i class="fas fa-pen"></i> Update</a></td>#}
+{#                    <td style="width:10px;"><a class="delete_btn" onclick="return confirm('Are you sure?');" href="{% url 'delete_portfolio' item.id %}">Delete</a></td>#}
+{##}
+{##}
+{##}
+{#				</tr>#}
+{#				{% endfor %}#}
+{#    </table>#}
+
+
+
+
+
+
+
+
+
+{#<table class="table table-bordered">#}
+{#  <thead>#}
+{#    <tr>#}
+{#      <th>Portfolio</th>#}
+{#      <th>Created</th>#}
+{#      <th>Total</th>#}
+{#    </tr>#}
+{#  </thead>#}
+{#  <tbody>#}
+{#    {% for item in portfolios %}#}
+{#      <tr>#}
+{#        <td>{{item.name}}</td>#}
+{#        <td>{{item.created|date:"d/m/Y" }}</td>#}
+{#        <td>{{item.total_count}}</td>#}
+{#      </tr>#}
+{#    {% endfor %}#}
+{#  </tbody>#}
+{#</table>#}
+
+
+{#{% if portfolios.has_other_pages %}#}
+{##}
+{#<nav aria-label="Page navigation example">#}
+{#  <ul class="pagination">#}
+{#    {% if portfolios.has_previous %}#}
+{#      <li class="page-item"><a class="page-link" href="?page={{ portfolios.previous_page_number }}">Previous</a></li>#}
+{#    {% else %}#}
+{#      <li class="disabled"><span>Previous</span></li>#}
+{#    {% endif %}#}
+{#    {% for i in portfolios.paginator.page_range %}#}
+{#      {% if portfolios.number == i %}#}
+{#        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>#}
+{#      {% else %}#}
+{#        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>#}
+{#      {% endif %}#}
+{#    {% endfor %}#}
+{#    {% if portfolios.has_next %}#}
+{#      <li class="page-item"><a class="page-link" href="?page={{ portfolios.next_page_number }}">Next</a></li>#}
+{#    {% else %}#}
+{#      <li class="disabled"><span>Next</span></li>#}
+{#    {% endif %}#}
+{#  </ul>#}
+{#</nav>#}
+{#{% endif %}#}
+
+
+{#<!-- jQuery -->#}
+{#  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
+{##}
+{#  <!-- Fengyuan Chen's Datepicker -->#}
+{#  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />#}
+{#  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>#}
+{##}
+{#  <script>#}
+{#    $(function () {#}
+{#      $("#datepicker").datepicker();#}
+{#    });#}
+{##}
+{#  </script>#}
+
+
+
+
+
+
+{%  endblock %}
+

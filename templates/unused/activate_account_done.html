@@ -1,0 +1,16 @@
+{%  extends 'base.html' %}
+
+{% block title %}Account Activation{% endblock %}
+
+{%  block content %}
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">Account Activation Complete</h3>
+				</div>
+                <span class="forgot_pass">Account Activated, the User: {{user.first_name}} {{user.last_name}} has been notified of your approval of their registration.</span>
+                <p class="forgot_pass">You can manage User Accounts through the Admin Panel using the following link: <a href="{% url "admin:index" %}" class="ml-2">Admin</a></p>
+                <div class="mt-1">
+					<div class="d-flex justify-content-center links">
+						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+					</div>
+                 </div>
+{%  endblock content %}

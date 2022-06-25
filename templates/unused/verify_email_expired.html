@@ -1,0 +1,16 @@
+{%  extends 'base.html' %}
+
+{% block title %}Email Verification{% endblock %}
+
+{%  block content %}
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">Email Verification Expired</h3>
+				</div>
+                <span class="forgot_pass">The email verification link for : {{user.email}} has expired, please re-register on the site.</span>
+                <div class="mt-1">
+					<div class="d-flex justify-content-center links">
+						Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+					</div>
+                 </div>
+
+{%  endblock content %}

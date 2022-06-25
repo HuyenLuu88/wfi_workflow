@@ -1,0 +1,120 @@
+{%  extends 'main.html' %}
+{% load static %}
+{% load myfilters %}
+{% block title %}Identifiers{% endblock %}
+
+
+
+
+{% block breadcrumb %}
+
+<div class="breadcrumb-container">
+
+ {% include 'breadcrumb_home.html' %}
+
+    <ul class="breadcrumb">
+      <li class="breadcrumb--item">
+      </li>
+      <li class="breadcrumb--item active">Identifiers</li>
+    </ul>
+ </div>
+
+{% endblock breadcrumb %}
+
+
+{%  block content %}
+
+<h1 class ="headers">Identifiers</h1>
+
+
+
+
+<p class ="form_headers">Cr
+    eate Portfolio</p>
+
+      <p class ="main-para">You can create your own custom portfolios below:</p>
+
+
+
+    {% if portfolio.count == 1 %}
+    <p class ="main-para">You have {{portfolio.count}} portfolio loaded on your account.</p>
+{% else %}
+    <p class ="main-para">You have {{portfolio.count}} portfolios loaded on your account.</p>
+{% endif %}
+{#{{ account.name }}#}
+{#    initial_count = models.IntegerField(blank=True, null=True)#}
+{#    update_count = models.IntegerField(blank=True, null=True)#}
+{#    total_count = models.IntegerField(blank=True, null=True)#}
+{#    valid_count = models.IntegerField(blank=True, null=True)#}
+{#    invalid_count = models.IntegerField(blank=True, null=True)#}
+
+
+{% if portfolio.count == 0 %}
+
+
+{% else %}
+    <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Identifier</th>
+{#					<th>Priority</th>#}
+{#					<th>Created</th>#}
+{#					<th>Updated</th>#}
+{#                    <th>Deadline</th>#}
+{#					<th>Comments</th>#}
+{#                    <th>Initial Count</th>#}
+{#					<th>Update Count</th>#}
+{#					<th>Valid Count</th>#}
+{#                    <th>Invalid Count</th>#}
+{#                    <th>Total Count</th>#}
+{#					<th>Update</th>#}
+{#					<th>Remove</th>#}
+				</tr>
+
+				{% for item in identifiers %}
+
+				<tr>
+					<td>{{item.code}}</td>
+{#                    <td>{{item.priority_type}}</td>#}
+{#                    <td>{{item.created|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.updated|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.deadline_date|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.comments}}</td>#}
+{#                    <td>{{item.initial_count}}</td>#}
+{#                    <td>{{item.update_count}}</td>#}
+{#                    <td>{{item.valid_count}}</td>#}
+{#                    <td>{{item.invalid_count}}</td>#}
+{#                    <td>{{item.total_count}}</td>#}
+
+
+
+{#					<td>{{order.note}}</td>#}
+{#					<td>{{order.date_created}}</td>#}
+{#					<td>{{order.status}}</td>#}
+{#					<td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>#}
+{##}
+{#					<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>#}
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+{%  endblock %}

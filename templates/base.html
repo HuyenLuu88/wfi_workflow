@@ -1,0 +1,84 @@
+
+{% url 'register' as register %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}WFI Workflow System{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+
+{#{% if request.path == register %}#}
+{#    <div class="reg_card">#}
+{#{% else %}#}
+{#<div class="user_card">#}
+{#{% endif %}#}
+
+<div class="user_card">
+
+            <a><img class="login-logo" {% include 'logo.html' %} alt="home"></a>
+            <div class="login-logo-txt-box">
+                {% include 'version.html' %}
+            </div>
+
+            {% block content %}
+
+            {% endblock content %}
+            {#        </div>#}
+            {#        <div class="input-group mb-1">#}
+            {#            #}
+            {#        </div>#}
+{#            {% include 'messages.html' %}#}
+{#        <p>{{form.errors}}</p>#}
+{##}
+{#        {% for error in form.username.errors %}#}
+{#            {{error}}#}
+{#        {% endfor %}#}
+
+{#            <div class="input-group mb-1">#}
+{#            </div>#}
+{#            {% if request.path == '/login/' %}#}
+{#                #}
+{##}
+{#            {% endif %}#}
+{##}
+{#            {% if request.path == '/register/' %}#}
+{#                #}
+{#            {% endif %}#}
+{##}
+{#            {% if request.path == '/request_reset_link/' %}#}
+{#                #}
+{#            {% endif %}#}
+
+
+
+            {#            <div class="mt-1">#}
+            {#                <div class="d-flex justify-content-center links">#}
+            {#                    Forgot Password? <a href="{% url 'password_reset' %}" class="ml-2">Reset Password</a>#}
+            {#                </div>#}
+            {#                <div class="d-flex justify-content-center links">#}
+            {#                    Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>#}
+            {#                </div>#}
+            {#                <div class="d-flex justify-content-center links">#}
+            {#                    Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>#}
+            {#                </div>#}
+            {#            </div>#}
+
+        </div>
+    </div>
+</div>
+</body>

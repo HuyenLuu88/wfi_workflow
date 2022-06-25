@@ -1,0 +1,400 @@
+{%  extends 'main.html' %}
+{% load static %}
+{% load myfilters %}
+{% block title %}Dashboard{% endblock %}
+
+
+
+
+{#{% block breadcrumb %}#}
+{##}
+{#<div class="breadcrumb-container">#}
+{##}
+{# {% include 'breadcrumb_home.html' %}#}
+{##}
+{#    <ul class="breadcrumb">#}
+{#      <li class="breadcrumb--item">#}
+{#      </li>#}
+{#      <li class="breadcrumb--item active">Portfolios</li>#}
+{#    </ul>#}
+{# </div>#}
+{##}
+{#{% endblock breadcrumb %}#}
+
+
+{%  block content %}
+
+<h1 class ="headers">Dashboard</h1>
+
+
+
+
+<div id="dash_wrapper">
+    <div id="dash_div1">
+        <p class ="form_headers2">Portfolio Overview</p>
+
+
+{#        {% if account.count == 1 %}#}
+{#    <p class ="main-para">You have {{account.count}} portfolio loaded on your account.</p>#}
+{#{% else %}#}
+{#    <p class ="main-para">You have {{account.count}} portfolios loaded on your account.</p>#}
+{#{% endif %}#}
+{#{{ account.name }}#}
+{#    initial_count = models.IntegerField(blank=True, null=True)#}
+{#    update_count = models.IntegerField(blank=True, null=True)#}
+{#    total_count = models.IntegerField(blank=True, null=True)#}
+{#    valid_count = models.IntegerField(blank=True, null=True)#}
+{#    invalid_count = models.IntegerField(blank=True, null=True)#}
+{##}
+{##}
+{#{% if account.count == 0 %}#}
+
+
+{#{% else %}#}
+    <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="dashtable table-sm" >
+				<tr>
+					<th>Portfolio</th>
+					<th>Priority</th>
+					<th>Created</th>
+{#					<th>Updated</th>#}
+                    <th>Deadline</th>
+{#					<th>Comments</th>#}
+{#                    <th>Initial</th>#}
+{#					<th>Update</th>#}
+{#					<th>Valid</th>#}
+{#                    <th>Invalid</th>#}
+                    <th>Total</th>
+{#                    <th>ISIN</th>#}
+{#                    <th>USCODE</th>#}
+{#                    <th>SEDOL</th>#}
+{#                    <th></th>#}
+{#                    <th></th>#}
+{#                    <th></th>#}
+				</tr>
+
+				{% for item in account %}
+
+				<tr>
+					<td>{{item.name}}</td>
+                    <td>{{item.priority}}</td>
+                    <td>{{item.created|date:"d/m/Y" }}</td>
+{#                    <td>{{item.updated|date:"d/m/Y" }}</td>#}
+                    <td>{{item.deadline|date:"d/m/Y" }}</td>
+{#                    <td>{{item.comments}}</td>#}
+{#                    <td>{{item.initial_count}}</td>#}
+{#                    <td>{{item.update_count}}</td>#}
+{#                    <td>{{item.valid_count}}</td>#}
+{#                    <td>{{item.invalid_count}}</td>#}
+                    <td>{{item.total}}</td>
+{#                    <td>{{item.isin_count}}</td>#}
+{#                    <td>{{item.uscode_count}}</td>#}
+{#                    <td>{{item.sedol_count}}</td>#}
+{#                    <td style="width:10px;"><a class="view_btn" href="{% url 'portfolio' item.id %}">View</a></td>#}
+{#					<td style="width:106px;"><a class="update_btn" href="{% url 'portfolio' item.id %}"><i class="fas fa-pen"></i> Update</a></td>#}
+{#                    <td style="width:10px;"><a class="delete_btn" onclick="return confirm('Are you sure?');" href="{% url 'delete_portfolio' item.id %}">Delete</a></td>#}
+
+
+
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+    </div>
+{#  {% include 'pagination.html' with page=posts %}#}
+
+{#{% endif %}#}
+
+
+
+{#{% if portfolios.has_other_pages %}#}
+{##}
+{#<nav aria-label="Page navigation example">#}
+{#  <ul class="pagination">#}
+{#    {% if portfolios.has_previous %}#}
+{#      <li class="page-item"><a class="page-link" href="?page={{ portfolios.previous_page_number }}">Previous</a></li>#}
+{#    {% else %}#}
+{#      <li class="disabled"><span>Previous</span></li>#}
+{#    {% endif %}#}
+{#    {% for i in portfolios.paginator.page_range %}#}
+{#      {% if portfolios.number == i %}#}
+{#        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>#}
+{#      {% else %}#}
+{#        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>#}
+{#      {% endif %}#}
+{#    {% endfor %}#}
+{#    {% if portfolios.has_next %}#}
+{#      <li class="page-item"><a class="page-link" href="?page={{ portfolios.next_page_number }}">Next</a></li>#}
+{#    {% else %}#}
+{#      <li class="disabled"><span>Next</span></li>#}
+{#    {% endif %}#}
+{#  </ul>#}
+{#</nav>#}
+{#{% endif %}#}
+
+
+
+
+    <div id="dash_div2">
+        <p class ="form_headers2">Summary</p>
+
+            <div id="dash_div4">
+
+{#       this is where to add code for dashboard summary         #}
+
+
+    </div>
+
+    </div>
+
+    <div id="dash_div3">
+        <td style="width:10px;"><a class="vmore_btn" href="{% url 'portfolios' %}">View more</a></td>
+    </div>
+
+{#    <div id="dash_div4">#}
+{#        <td style="width:10px;"><a class="vmore_btn" href="{% url 'tasks' %}">View more</a></td>#}
+{#    </div>#}
+</div>
+
+
+
+<div id="dash_wrapper">
+    <div id="dash_div1">
+        <p class ="form_headers2">Task Overview</p>
+
+
+{#        {% if account.count == 1 %}#}
+{#    <p class ="main-para">You have {{account.count}} portfolio loaded on your account.</p>#}
+{#{% else %}#}
+{#    <p class ="main-para">You have {{account.count}} portfolios loaded on your account.</p>#}
+{#{% endif %}#}
+{#{{ account.name }}#}
+{#    initial_count = models.IntegerField(blank=True, null=True)#}
+{#    update_count = models.IntegerField(blank=True, null=True)#}
+{#    total_count = models.IntegerField(blank=True, null=True)#}
+{#    valid_count = models.IntegerField(blank=True, null=True)#}
+{#    invalid_count = models.IntegerField(blank=True, null=True)#}
+{##}
+{##}
+{#{% if account.count == 0 %}#}
+
+
+{#{% else %}#}
+    <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="dashtable table-sm" >
+				<tr>
+					<th>Task</th>
+					<th>Desc</th>
+{#					<th>Created</th>#}
+{#					<th>Updated</th>#}
+{#                    <th>Deadline</th>#}
+{#					<th>Comments</th>#}
+{#                    <th>Initial</th>#}
+{#					<th>Update</th>#}
+{#					<th>Valid</th>#}
+{#                    <th>Invalid</th>#}
+{#                    <th>Total</th>#}
+{#                    <th>ISIN</th>#}
+{#                    <th>USCODE</th>#}
+{#                    <th>SEDOL</th>#}
+{#                    <th></th>#}
+{#                    <th></th>#}
+{#                    <th></th>#}
+				</tr>
+
+				{% for item in feed %}
+
+				<tr>
+					<td>{{item.name}}</td>
+                    <td>{{item.desc}}</td>
+{#                    <td>{{item.created|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.updated|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.deadline_date|date:"d/m/Y" }}</td>#}
+{#                    <td>{{item.comments}}</td>#}
+{#                    <td>{{item.initial_count}}</td>#}
+{#                    <td>{{item.update_count}}</td>#}
+{#                    <td>{{item.valid_count}}</td>#}
+{#                    <td>{{item.invalid_count}}</td>#}
+{#                    <td>{{item.total_count}}</td>#}
+{#                    <td>{{item.isin_count}}</td>#}
+{#                    <td>{{item.uscode_count}}</td>#}
+{#                    <td>{{item.sedol_count}}</td>#}
+{#                    <td style="width:10px;"><a class="view_btn" href="{% url 'portfolio' item.id %}">View</a></td>#}
+{#					<td style="width:106px;"><a class="update_btn" href="{% url 'portfolio' item.id %}"><i class="fas fa-pen"></i> Update</a></td>#}
+{#                    <td style="width:10px;"><a class="delete_btn" onclick="return confirm('Are you sure?');" href="{% url 'delete_portfolio' item.id %}">Delete</a></td>#}
+
+
+
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+    </div>
+{#  {% include 'pagination.html' with page=posts %}#}
+
+{#{% endif %}#}
+
+
+
+{#{% if portfolios.has_other_pages %}#}
+{##}
+{#<nav aria-label="Page navigation example">#}
+{#  <ul class="pagination">#}
+{#    {% if portfolios.has_previous %}#}
+{#      <li class="page-item"><a class="page-link" href="?page={{ portfolios.previous_page_number }}">Previous</a></li>#}
+{#    {% else %}#}
+{#      <li class="disabled"><span>Previous</span></li>#}
+{#    {% endif %}#}
+{#    {% for i in portfolios.paginator.page_range %}#}
+{#      {% if portfolios.number == i %}#}
+{#        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>#}
+{#      {% else %}#}
+{#        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>#}
+{#      {% endif %}#}
+{#    {% endfor %}#}
+{#    {% if portfolios.has_next %}#}
+{#      <li class="page-item"><a class="page-link" href="?page={{ portfolios.next_page_number }}">Next</a></li>#}
+{#    {% else %}#}
+{#      <li class="disabled"><span>Next</span></li>#}
+{#    {% endif %}#}
+{#  </ul>#}
+{#</nav>#}
+{#{% endif %}#}
+
+
+
+
+{#    <div id="dash_div2">#}
+{#        <p class ="form_headers2">Summary</p>#}
+{#    </div>#}
+
+    <div id="dash_div3">
+        <td style="width:10px;"><a class="vmore_btn" href="{% url 'tasks' %}">View more</a></td>
+    </div>
+
+{#    <div id="dash_div4">#}
+{#        <td style="width:10px;"><a class="vmore_btn" href="{% url 'tasks' %}">View more</a></td>#}
+{#    </div>#}
+</div>
+
+
+
+
+
+
+
+     <p class ="form_headers">Identifier Pool</p>
+
+{#{% if account.count == 1 %}#}
+{#    <p class ="main-para">You have {{account.count}} portfolio loaded on your account.</p>#}
+{#{% else %}#}
+{#    <p class ="main-para">You have {{account.count}} portfolios loaded on your account.</p>#}
+{#{% endif %}#}
+{#{{ account.name }}#}
+{#    initial_count = models.IntegerField(blank=True, null=True)#}
+{#    update_count = models.IntegerField(blank=True, null=True)#}
+{#    total_count = models.IntegerField(blank=True, null=True)#}
+{#    valid_count = models.IntegerField(blank=True, null=True)#}
+{#    invalid_count = models.IntegerField(blank=True, null=True)#}
+{##}
+{##}
+{#{% if account.count == 0 %}#}
+{##}
+{##}
+{#{% else %}#}
+    <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>SecID</th>
+					<th>ISIN</th>
+					<th>USCODE</th>
+					<th>SEDOL</th>
+                    <th>IssuerName</th>
+{#					<th>SectyCD</th>#}
+                    <th>BondType</th>
+					<th>SecurityDesc</th>
+					<th>StatusFlag</th>
+{#                    <th></th>#}
+                    <th></th>
+                    <th></th>
+				</tr>
+
+				{% for item in wca_identifiers %}
+
+				<tr>
+					<td>{{item.secid}}</td>
+                    <td>{{item.isin}}</td>
+                    <td>{{item.uscode }}</td>
+                    <td>{{item.sedol }}</td>
+                    <td>{{item.issuername }}</td>
+{#                    <td>{{item.sectycd }}</td>#}
+                    <td>{{item.bondtype }}</td>
+                    <td>{{item.securitydesc }}</td>
+                    <td>{{item.statusflag }}</td>
+{#                    <td style="width:10px;"><a class="view_btn" href="{% url 'portfolio' item.id %}">View</a></td>#}
+					<td style="width:106px;"><a class="update_btn" href="{% url 'portfolio' item.id %}"><i class="fas fa-pen"></i> Update</a></td>
+                    <td style="width:10px;"><a class="delete_btn" onclick="return confirm('Are you sure?');" href="{% url 'delete_portfolio' item.id %}">Delete</a></td>
+
+
+
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{#  {% include 'pagination.html' with page=posts %}#}
+
+{#{% endif %}#}
+
+
+
+{% if wca_identifiers.has_other_pages %}
+
+{#<nav aria-label="Page navigation example">#}
+  <ul class="pagination">
+    {% if wca_identifiers.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ wca_identifiers.previous_page_number }}">Previous</a></li>
+    {% else %}
+{#      <li class="disabled"><span>Previous</span></li>#}
+    {% endif %}
+    {% for i in wca_identifiers.paginator.page_range %}
+        {% if i <= wca_identifiers.number|add:9 and i >= wca_identifiers.number|add:-9 %}
+      {% if wca_identifiers.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% if wca_identifiers.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ wca_identifiers.next_page_number }}">Next</a></li>
+    {% else %}
+{#      <li class="disabled"><span>Next</span></li>#}
+    {% endif %}
+  </ul>
+{#</nav>#}
+{% endif %}
+
+<br><br>
+
+
+
+
+
+{%  endblock %}
+

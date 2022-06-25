@@ -1,0 +1,791 @@
+{%  extends 'main.html' %}
+{% load myfilters %}
+{% load myfilters %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} Account Settings{% endblock %}
+
+{% block breadcrumb %}
+
+<div class="breadcrumb-container">
+ {% include 'breadcrumb_home.html' %}
+    <ul class="breadcrumb">
+      <li class="breadcrumb--item">
+      </li>
+      <li class="breadcrumb--item active"> Account Settings</li>
+    </ul>
+ </div>
+
+{% endblock breadcrumb %}
+
+
+{%  block content %}
+
+
+
+{# {% if messages %}#}
+{#    {% for message in messages %}#}
+{#        {% if message.tags == 'success' %}#}
+{#            <p class="acc-messages_success">{{ message }}</p>#}
+{#        {% endif %}#}
+{#    {% endfor %}#}
+{#{% else %}#}
+{##}
+{#<p class="acc-messages_empty"></p>#}
+{##}
+{#{% endif %}#}
+
+
+<h1 class ="headers"> Account Settings</h1>
+
+
+
+       <form method="POST" action="">
+        {% csrf_token %}
+       {{ form.media.js }}
+       {{ form2.media.js }}
+ <div class = "acc_1_container">
+
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Personal Information</h1>
+        </div>
+       <div id="wrapper">
+            <div id="first"><i class="far fa-user"></i></div>
+            <div id="second">Username:</div>
+            <div id="third">{{ user.username }}</div>
+            <div id="forth"></div>
+       </div>
+        <div id="wrapper">
+            <div id="first"><i class="far fa-user"></i></div>
+            <div id="second">First Name:</div>
+            <div id="third">{{ user.first_name }}</div>
+            <div id="fname"><i class="fas fa-pen fa-fw"></i>Update</div>
+<!-- The Modal -->
+<div id="myModal1" class="modal1">
+    <div class = "acc_1_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Personal Information</h1>
+        </div>
+  <!-- Modal content -->
+  <div class="modal-content">
+      <button class="close" type="button" value="Cancel" name="cancel">&times;</button>
+ <div id="wrapper">
+            <div id="first_inner"><i class="far fa-user"></i></div>
+            <div id="second_inner">First Name:</div>
+{{ form.first_name|addclass:'form_input' }}
+           {% if form.errors %}
+    {% for error in form.first_name.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+      </div>
+      <div class="save_cancel_box">
+<div class="error-message" id="first_name_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_user" onclick="fnameFunction()">
+          <input class="cancel_btn" type="button" value="Cancel" name="cancel">
+      </div>
+
+  </div>
+</div>
+</div>
+    </div>
+
+
+ <div id="wrapper">
+            <div id="first"><i class="far fa-user"></i></div>
+            <div id="second">Last Name:</div>
+            <div id="third">{{ user.last_name }}</div>
+            <div id="lname"><i class="fas fa-pen fa-fw"></i>Update</div>
+<!-- The Modal -->
+<div id="myModal2" class="modal1">
+    <div class = "acc_1_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Personal Information</h1>
+        </div>
+  <!-- Modal content -->
+  <div class="modal-content">
+    <button class="close" type="button" value="Cancel" name="cancel">&times;</button>
+ <div id="wrapper">
+            <div id="first_inner"><i class="far fa-user"></i></div>
+            <div id="second_inner">Last Name:</div>
+{{ form.last_name|addclass:'form_input' }}
+     {% if form.errors %}
+    {% for error in form.last_name.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+</div>
+      <div class="save_cancel_box">
+<div class="error-message" id="last_name_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_user" onclick="lnameFunction()">
+      <input class="cancel_btn" type="button" value="Cancel" name="cancel">
+      </div>
+  </div>
+</div>
+</div>
+        </div>
+
+
+
+ <div id="wrapper">
+            <div id="first"><i class="far fa-envelope"></i></div>
+            <div id="second">Email:</div>
+            <div id="third">{{ user.email }}</div>
+            <div id="email"><i class="fas fa-pen fa-fw"></i>Update</div>
+<!-- The Modal -->
+<div id="myModal3" class="modal1">
+    <div class = "acc_1_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Personal Information</h1>
+        </div>
+  <!-- Modal content -->
+  <div class="modal-content">
+    <button class="close" type="submit" value="Cancel" name="cancel_user">&times;</button>
+ <div id="wrapper">
+            <div id="first_inner"><i class="far fa-envelope"></i></div>
+            <div id="second_inner">Email:</div>
+{{ form.email|addclass:'form_input' }}
+
+     {% if form.errors %}
+    {% for error in form.email.errors %}
+        <div class="error-message" id="email_errors">{{ error }}</div>
+    {% endfor %}
+{% endif %}
+
+</div>
+      <div class="save_cancel_box">
+<div class="error-message" id="email_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_user" onclick="emailFunction()">
+      <input class="cancel_btn" type="submit" value="Cancel" name="cancel_user">
+      </div>
+  </div>
+</div>
+</div>
+        </div>
+
+        </div>
+
+
+
+
+
+ <div class = "acc_2_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Employee Information</h1>
+        </div>
+
+        <div id="wrapper">
+            <div id="first"><i class="far fa-id-card"></i></div>
+            <div id="second">Company Role:</div>
+            <div id="third">{{ user.company_role }}</div>
+            <div id="role"><i class="fas fa-pen fa-fw"></i>Update</div>
+<!-- The Modal -->
+<div id="myModal4" class="modal2">
+    <div class = "acc_2_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Employee Information</h1>
+        </div>
+  <!-- Modal content -->
+  <div class="modal2-content">
+    <button class="close2" type="button" value="Cancel" name="cancel">&times;</button>
+ <div id="wrapper">
+            <div id="first_inner"><i class="far fa-id-card"></i></div>
+            <div id="second_inner">Company Role:</div>
+{{ form.company_role|addclass:'form_dropdown'}}
+           {% if form.errors %}
+    {% for error in form.company_role.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+      </div>
+      <div class="acc2_save_cancel_box">
+<div class="error-message" id="role_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_user" onclick="roleFunction()">
+      <input class="cancel_btn" type="button" value="Cancel" name="cancel">
+      </div>
+
+  </div>
+</div>
+</div>
+    </div>
+
+
+
+
+      {% if user.company_role.name  == 'Translator' %}
+
+ <div id="wrapper">
+
+            <div id="first"><i class="far fa-building"></i></div>
+            <div id="second">Office:</div>
+            <div id="third">{{ user.office }}</div>
+            <div id="forth"></div>
+            <div id="office" style="display: none;"><i class="fas fa-pen fa-fw"></i>Update</div>
+
+            {% else %}
+
+
+ <div id="wrapper">
+
+            <div id="first"><i class="far fa-building"></i></div>
+            <div id="second">Office:</div>
+            <div id="third">{{ user.office }}</div>
+            <div id="office"><i class="fas fa-pen fa-fw"></i>Update</div>
+
+     {% endif %}
+
+
+
+
+
+
+
+
+
+{# <div id="wrapper">#}
+{##}
+{#            <div id="first"><i class="far fa-building"></i></div>#}
+{#            <div id="second">Office:</div>#}
+{#            <div id="third">{{ user.office }}</div>#}
+{#            <div id="office"><i class="fas fa-pen fa-fw"></i>Update</div>#}
+<!-- The Modal -->
+<div id="myModal5" class="modal2">
+    <div class = "acc_2_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Employee Information</h1>
+        </div>
+  <!-- Modal content -->
+  <div class="modal2-content">
+    <button class="close2" type="button" value="Cancel" name="cancel">&times;</button>
+ <div id="wrapper">
+            <div id="first_inner"><i class="far fa-building"></i></div>
+            <div id="second_inner">Office:</div>
+{{ form.office|addclass:'form_dropdown' }}
+     {% if form.errors %}
+    {% for error in form.office.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+</div>
+      <div class="acc2_save_cancel_box">
+<div class="error-message" id="office_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_user" onclick="officeFunction()">
+      <input class="cancel_btn" type="button" value="Cancel" name="cancel">
+      </div>
+  </div>
+</div>
+
+</div>
+        </div>
+
+
+
+
+
+
+{# This if statement wa sin use #}
+     {% if user.company_role.name  == 'Translator' %}
+
+        <div id="wrapper">
+            <div id="first"><i class="fas fa-globe-americas"></i></div>
+            <div id="second">Location:</div>
+            <div id="third">{{ user.location }}</div>
+            <div id="location" ><i class="fas fa-pen fa-fw"></i>Update</div>
+
+
+            {% else %}
+
+
+        <div id="wrapper">
+            <div id="first"><i class="fas fa-globe-americas"></i></div>
+            <div id="second">Location:</div>
+            <div id="third">{{ office.0 }}</div>
+            <div id="location" style="display: none;"><i class="fas fa-pen fa-fw"></i>Update</div>
+            <div id="forth"></div>
+
+     {% endif %}
+
+
+<!-- The Modal -->
+<div id="myModal6" class="modal2">
+    <div class = "acc_2_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Employee Information</h1>
+        </div>
+  <!-- Modal content -->
+  <div class="modal2-content">
+    <button class="close2" type="button" value="Cancel" name="cancel">&times;</button>
+ <div id="wrapper">
+            <div id="first_inner"><i class="fas fa-globe-americas"></i></div>
+            <div id="second_inner">Location:</div>
+{{ form.location|addclass:'form_dropdown' }}
+           {% if form.errors %}
+    {% for error in form.location.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+      </div>
+      <div class="acc2_save_cancel_box">
+<div class="error-message" id="location_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_user" onclick="locationFunction()">
+      <input class="cancel_btn" type="button" value="Cancel" name="cancel">
+      </div>
+
+  </div>
+</div>
+</div>
+    </div>
+
+</div>
+</div>
+
+</form>
+
+
+
+
+
+
+
+
+    <div class = "acc_3_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Security</h1>
+        </div>
+
+
+       <form method="POST" action="">
+        {% csrf_token %}
+       {{ form.media.js }}
+       {{ form2.media.js }}
+ <div id="wrapper">
+
+            <div id="first"><i class="fas fa-key"></i></div>
+            <div id="second">Password:</div>
+            <div id="third">Hidden</div>
+            <div id="password"><i class="fas fa-pen fa-fw"></i>Update</div>
+<!-- The Modal -->
+<div id="myModal7" class="modal3">
+    <div class = "inner_acc_3_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Security</h1>
+        </div>
+
+
+  <!-- Modal content -->
+  <div class="modal3-content">
+<button class="close3" type="button" value="Cancel" name="cancel">&times;</button>
+
+
+
+ <div id="wrapper">
+            <div id="first_inner"><i class="fas fa-key"></i></div>
+            <div id="second_inner">Old Password:</div>
+{{ form2.old_password|addclass:'form_input'  }}
+
+<div class="old_password-errors" id="old_password-errors">{{ form2.old_password.errors.0 }}</div>
+</div>
+
+
+  <div id="wrapper">
+            <div id="first_inner"><i class="fas fa-key"></i></div>
+            <div id="second_inner">New Password:</div>
+{{ form2.new_password1|addclass:'form_input'  }}
+
+
+<div class="new-password1-errors" id="new-password1-errors">{{ form2.new_password1.errors.0 }}</div>
+</div>
+
+
+
+  <div id="wrapper">
+            <div id="first_inner"><i class="fas fa-key"></i></div>
+            <div id="second_inner">Confirm Password:</div>
+ {{ form2.new_password2|addclass:'form_input'  }}
+
+
+
+<div class="new-password2-errors" id="new-password2-errors">{{ form2.new_password2.errors.0 }}</div>
+</div>
+
+
+      <div class="acc3_save_cancel_box">
+
+      <input class="save_btn" type="submit" value="Save" name="save_password" onclick="passwordFunction()">
+      <input class="cancel_btn" type="button" value="Cancel" name="cancel">
+      </div>
+
+
+
+  </div>
+
+
+
+</div>
+
+</div>
+        </div>
+       </form>
+
+
+       <form method="POST" action="">
+        {% csrf_token %}
+       {{ form.media.js }}
+       {{ form2.media.js }}
+
+        <div id="wrapper">
+            <div id="first"><i class="fas fa-shield-alt"></i></div>
+            <div id="second">2FA Status:</div>
+
+           {% if devices.confirmed %}
+            <div id="third">Enabled</div>
+              {% else %}
+             <div id="third">Disabled</div>
+        {% endif %}
+
+            <div id="forth"></div>
+
+        </div>
+
+
+
+
+
+
+
+    <div id="wrapper">
+
+            <div id="first"><i class="fas fa-shield-alt"></i></div>
+            <div id="second">2FA Device Name:</div>
+            <div id="third">{{ devices.name }}</div>
+            <div id="twofa"><i class="fas fa-pen fa-fw"></i>Update</div>
+<!-- The Modal -->
+<div id="myModal8" class="modal3">
+    <div class = "acc_3_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Security</h1>
+        </div>
+
+
+  <!-- Modal content -->
+  <div class="modal3-content">
+<button class="close3" type="button" value="Cancel" name="cancel">&times;</button>
+
+
+
+ <div id="wrapper2">
+            <div id="first_inner"><i class="fas fa-shield-alt"></i></div>
+            <div id="second_inner">2FA Device Name:</div>
+     <input type="text" name="twofa" value="{{ devices.name }}" class="form_input" required>
+
+</div>
+
+
+
+      <div class="acc3_save_cancel_box">
+<div class="error-message" id="twofa_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_twofa" onclick="twofaFunction()">
+      <input class="cancel_btn" type="button" value="Cancel" name="cancel">
+      </div>
+
+
+
+  </div>
+
+
+
+</div>
+
+</div>
+        </div>
+
+
+
+        <div id="wrapper">
+            <div id="first"><i class="fas fa-ticket-alt"></i></div>
+            <div id="second">2FA Backup Tokens:</div>
+            <div id="third"><a href="{% url 'two_factor:backup_tokens' %}" class="content_links">Backup Tokens</a></div>
+            <div id="forth"></div>
+        </div>
+
+
+
+        <div id="wrapper">
+            <div id="first"><i class="fas fa-redo-alt"></i></div>
+            <div id="second">Reset 2FA Device:</div>
+            <div id="third"><input class="content_btn" type="submit" value="Reset 2FA Device" name="Reset_2fa"></div>
+            <div id="forth"></div>
+        </div>
+
+
+
+</form>
+
+
+</div>
+
+
+    <div class = "acc_4_container">
+
+        <div class = "content_header_box">
+        <h1 class ="content_headers">User Access</h1>
+        </div>
+
+       <div id="wrapper">
+            <div id="first"><i class="far fa-calendar-alt"></i></div>
+            <div id="second">Last Login:</div>
+            <div id="third">{{ user.last_login }}</div>
+            <div id="forth"></div>
+        </div>
+
+        <div id="wrapper">
+            <div id="first"><i class="far fa-calendar-alt"></i></div>
+            <div id="second">Start Date:</div>
+            <div id="third">{{ user.start_date }}</div>
+            <div id="forth"></div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+<script>
+// Get the modal
+var modal1 = document.getElementById("myModal1");
+var modal2 = document.getElementById("myModal2");
+var modal3 = document.getElementById("myModal3");
+var modal4 = document.getElementById("myModal4");
+var modal5 = document.getElementById("myModal5");
+var modal6 = document.getElementById("myModal6");
+var modal7 = document.getElementById("myModal7");
+var modal8 = document.getElementById("myModal8");
+
+// Get the button that opens the modal
+var fname_btn = document.getElementById("fname");
+var lname_btn = document.getElementById("lname");
+var email_btn = document.getElementById("email");
+var role_btn = document.getElementById("role");
+var office_btn = document.getElementById("office");
+var location_btn = document.getElementById("location");
+var password_btn = document.getElementById("password");
+var twofa_btn = document.getElementById("twofa");
+
+// Get the <span> element that closes the modal
+var fname_close = document.getElementsByClassName("close")[0];
+var cancel_fname_close = document.getElementsByClassName("cancel_btn")[0];
+
+var lname_close = document.getElementsByClassName("close")[1];
+var cancel_lname_close = document.getElementsByClassName("cancel_btn")[1];
+
+var email_close = document.getElementsByClassName("close")[2];
+var cancel_email_close = document.getElementsByClassName("cancel_btn")[2];
+
+var role_close = document.getElementsByClassName("close2")[0]; // remember this for container 3
+var cancel_role_close = document.getElementsByClassName("cancel_btn")[3];
+
+var office_close = document.getElementsByClassName("close2")[1]; // remember this for container 3
+var cancel_office_close = document.getElementsByClassName("cancel_btn")[4];
+
+var location_close = document.getElementsByClassName("close2")[2]; // remember this for container 3
+var cancel_location_close = document.getElementsByClassName("cancel_btn")[5];
+
+var password_close = document.getElementsByClassName("close3")[0]; // remember this for container 3
+var cancel_password_close = document.getElementsByClassName("cancel_btn")[6];
+
+var twofa_close = document.getElementsByClassName("close3")[1]; // remember this for container 3
+var cancel_twofa_close = document.getElementsByClassName("cancel_btn")[7];
+
+// When the user clicks the button, open the modal
+
+
+fname_btn.onclick = function() {
+  modal1.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+fname_close.onclick = function() {
+  document.getElementById("first_name_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal1.style.display = "none";
+}
+cancel_fname_close.onclick = function() {
+  document.getElementById("first_name_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal1.style.display = "none";
+}
+
+
+//modal2.style.display = "block";
+lname_btn.onclick = function() {
+  modal2.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+lname_close.onclick = function() {
+  document.getElementById("last_name_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[1].value = "";
+  modal2.style.display = "none";
+}
+cancel_lname_close.onclick = function() {
+  document.getElementById("last_name_errors").innerHTML = "";
+  //document.getElementsByName("last_name")[1].value = "";
+  modal2.style.display = "none";
+}
+
+
+
+//modal3.style.display = "block";
+email_btn.onclick = function() {
+  modal3.style.display = "block";
+}
+
+
+
+{% if form.email.errors %}
+    //modal3.style.display = "block";
+  modal3.style.display = "block";
+{% endif %}
+
+
+// When the user clicks on <span> (x), close the modal
+email_close.onclick = function() {
+  document.getElementById("email_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[2].value = "";
+  modal3.style.display = "none";
+}
+cancel_email_close.onclick = function() {
+  document.getElementById("email_errors").innerHTML = "";
+  //document.getElementsByName("last_name")[2].value = "";
+  modal3.style.display = "none";
+}
+
+
+//modal4.style.display = "block";
+
+role_btn.onclick = function() {
+  modal4.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+role_close.onclick = function() {
+  document.getElementById("role_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal4.style.display = "none";
+}
+cancel_role_close.onclick = function() {
+  document.getElementById("role_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal4.style.display = "none";
+}
+
+
+
+//modal5.style.display = "block";
+
+office_btn.onclick = function() {
+  modal5.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+office_close.onclick = function() {
+  document.getElementById("office_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal5.style.display = "none";
+}
+cancel_office_close.onclick = function() {
+  document.getElementById("office_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal5.style.display = "none";
+}
+
+
+//modal6.style.display = "block";
+
+
+     {% if user.company_role.name  == 'Translator' %}
+
+         location_btn.onclick = function() {
+          modal6.style.display = "block";
+}
+            {% else %}
+     {% endif %}
+
+
+
+
+
+
+
+
+
+// When the user clicks on <span> (x), close the modal
+location_close.onclick = function() {
+  document.getElementById("location_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal6.style.display = "none";
+}
+cancel_location_close.onclick = function() {
+  document.getElementById("location_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal6.style.display = "none";
+}
+
+
+//modal7.style.display = "block";
+password_btn.onclick = function() {
+  modal7.style.display = "block";
+}
+
+{% if form2.errors %}
+    //modal3.style.display = "block";
+  modal7.style.display = "block";
+{% endif %}
+
+
+// When the user clicks on <span> (x), close the modal
+password_close.onclick = function() {
+  document.getElementById("old_password-errors").innerHTML = "";
+  document.getElementById("new-password1-errors").innerHTML = "";
+  document.getElementById("new-password2-errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal7.style.display = "none";
+}
+cancel_password_close.onclick = function() {
+  document.getElementById("old_password-errors").innerHTML = "";
+  document.getElementById("new-password1-errors").innerHTML = "";
+  document.getElementById("new-password2-errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal7.style.display = "none";
+}
+
+
+//modal8.style.display = "block";
+
+twofa_btn.onclick = function() {
+  modal8.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+twofa_close.onclick = function() {
+  document.getElementById("twofa_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal8.style.display = "none";
+}
+cancel_twofa_close.onclick = function() {
+  document.getElementById("twofa_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal8.style.display = "none";
+}
+
+
+</script>
+
+{%  endblock %}

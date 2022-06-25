@@ -1,0 +1,49 @@
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+<div class="logo-clock-container">
+  <div class="logo-box">
+      <a href="{% url 'home' %}"><img class="logo" {%  include 'logo.html' %} alt="home"></a>
+  </div>
+  <div class="logo-txt-box">
+      {%  include 'version.html' %}
+  </div>
+  <div class="clock-3 clock-boxes">
+      <img class="flag-icon" src="{% static "img/England.png" %}">
+      <p class ="clock-txt"><span class="clock" data-timezone="Europe/London"></span></p>
+  </div>
+  <div class="clock-4 clock-boxes">
+      <img class="flag-icon" src="{% static "img/Morocco.png" %}">
+      <p class ="clock-txt"><span class="clock" data-timezone="Africa/Casablanca"></span> </p>
+  </div>
+  <div class="clock-5 clock-boxes">
+      <img class="flag-icon" src="{% static "img/India.png" %}">
+      <p class ="clock-txt"><span class="clock" data-timezone="Asia/Kolkata"></span> </p>
+  </div>
+  <div class="clock-6 clock-boxes">
+      <img class="flag-icon" src="{% static "img/Germany.png" %}">
+      <p class ="clock-txt"><span class="clock" data-timezone="Europe/Berlin"></span> </p>
+  </div>
+</div>
+
+            <script>
+const clocks = document.getElementsByClassName("clock");
+
+function updateClocks() {
+  for (let clock of clocks) {
+    let timezone = clock.dataset.timezone;
+    let time = new Date().toLocaleTimeString("en-US", {
+      hour: '2-digit',
+      minute:'2-digit',
+      second:'2-digit',
+      timeZone: timezone
+    });
+    clock.textContent = time;
+  }
+}
+
+// Update every minute:
+setInterval(updateClocks, 1000);
+updateClocks();
+        </script>

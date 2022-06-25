@@ -1,0 +1,17 @@
+{%  extends 'base.html' %}
+
+{% block title %}Email Verification{% endblock %}
+
+{%  block content %}
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">Email Verification Complete</h3>
+				</div>
+                <span class="forgot_pass">Email verified, the Admin has been notified of your registration and will Approve/Activate your Account shortly.</span>
+                <p class="forgot_pass">You will receive an email once your Account has been Approved.</p>
+                <div class="mt-1">
+					<div class="d-flex justify-content-center links">
+						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+					</div>
+                 </div>
+
+{%  endblock content %}

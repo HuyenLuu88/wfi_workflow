@@ -1,0 +1,316 @@
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+:root {
+    --darkgrey: #4c4c4c;
+    --green: #d9f0d2;
+    --darkgreen: #53784d;
+    --rederror: #ED4337;
+    --brightred: #e62332;
+    --darkred: #d71d2b;
+    --white: #FFF;
+    --lightred: #F9433DCC;
+    --lightgrey: #d7d7d7;
+    --black: black;
+    --grey: #a3a3a3;
+    --grey2: #8f8f8f;
+    --darkblue: #193276;
+    --lightblue: #386eff;
+}
+
+/**{*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*  user-select: none;*/
+/*  font-family: 'Poppins', sans-serif;*/
+/*  #font-family: Calibri;*/
+
+
+
+/*}*/
+
+
+nav-2{
+  position: absolute;
+  top: 150px;
+  left: 25%;
+  margin-left: 860px;
+  transform: translate(-50%, -50%);
+  #background: var(--white);
+  width: 300px;
+  line-height: 40px;
+  padding: 8px 25px;
+  #border-radius: 1px;
+  #border: 1px solid var(--grey);
+
+
+
+
+
+}
+nav-2 label{
+  color: var(--grey);
+  font-size: 23px;
+  font-weight: 500;
+  display: block;
+  cursor: pointer;
+  #width: 500px;
+  float: right;
+
+
+}
+
+nav-2 label:hover{
+  color: var(--darkgrey);
+  #font-weight: 500;
+  display: block;
+  cursor: pointer;
+}
+
+
+
+.drop-button span{
+  float: right;
+  line-height: 40px;
+  transition: 0.5s;
+  position: relative;
+  top: 0;
+  left: 3px;
+  margin-left: 5px;
+  }
+.drop-button span.rotate{
+  transform: rotate(-180deg);
+
+}
+nav-2 ul{
+  position: absolute;
+  background: var(--white);
+  list-style: none;
+  top: 53px;
+  right: 0;
+  width: 300px;
+  border-radius: 5px;
+  display: none;
+  border: 1px solid var(--grey);
+  #border-bottom: none;
+}
+
+
+
+
+.sub-menu-1 {
+  #border-bottom: 1px solid var(--grey);
+  font-size: 18px;
+  color: var(--grey);
+  height: 36px;
+  border:0;
+/*  margin-bottom: -4px;*/
+/*margin-top: -4px;*/
+
+
+}
+
+/*.test2 {*/
+/*  font-size: 18px;*/
+/*  color: var(--grey);*/
+/*  height: 39px;*/
+/*}*/
+
+
+
+[id^=btn]:checked + ul{
+  display: block;
+}
+nav-2 .menu:before{
+  position: absolute;
+  content: '';
+  height: 20px;
+  width: 20px;
+  #background: var(--grey);
+  right: 16px;
+  top: -4px;
+  transform: rotate(45deg);
+  z-index: -1;
+  border: 2px solid var(--grey);
+  display: block;
+
+}
+
+
+
+
+
+nav-2 ul li{
+  line-height: 30px;
+  padding: 3px 20px;
+  cursor: pointer;
+  border-top: 1px solid var(--grey);
+}
+nav-2 ul li label{
+  font-size: 18px;
+  #border-bottom: 1px solid var(--grey);
+}
+nav-2 ul li a{
+  color: var(--grey);
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+
+
+}
+nav-2 ul li a:hover,
+nav-2 ul li label:hover{
+  color: var(--darkgrey);
+}
+nav-2 ul ul{
+  position: static;
+}
+nav-2 ul ul li{
+  line-height: 30px;
+  padding-left: 30px;
+  border-bottom: none;
+}
+nav-2 ul ul li a{
+  color: #e6e6e6;
+  font-size: 17px;
+}
+nav-2 ul li span{
+  font-size: 18px;
+  float: right;
+  margin-top: 10px;
+  padding: 0 10px;
+  transition: 0.5s;
+
+}
+nav-2 ul li span.rotate{
+  transform: rotate(-180deg);
+}
+
+/*input {*/
+/*  display: none;*/
+/*}*/
+
+
+.visually-hidden {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Search Bar CSS ***************************************************/
+
+/* Googlefont Poppins CDN Link */
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');*/
+/**{*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*  font-family: 'Poppins', sans-serif;*/
+/*}*/
+/*body{*/
+/*  min-height: 100vh;*/
+/*}*/
+/*nav{*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  height: 70px;*/
+/*  background: #3E8DA8;*/
+/*  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);*/
+/*  z-index: 99;*/
+/*}*/
+/*nav .navbar{*/
+/*  height: 100%;*/
+/*  max-width: 1250px;*/
+/*  width: 100%;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  justify-content: space-between;*/
+/*  margin: auto;*/
+/*  !* background: red; *!*/
+/*  padding: 0 50px;*/
+/*}*/
+/*.navbar .logo a{*/
+/*  font-size: 30px;*/
+/*  color: #fff;*/
+/*  text-decoration: none;*/
+/*  font-weight: 600;*/
+/*}*/
+
+/*.navbar .search-box{*/
+/*  position: relative;*/
+/*   height: 40px;*/
+/*  width: 40px;*/
+/*}*/
+/*.navbar .search-box i{*/
+/*  position: absolute;*/
+/*  height: 100%;*/
+/*  width: 100%;*/
+/*  line-height: 40px;*/
+/*  text-align: center;*/
+/*  font-size: 22px;*/
+/*  color: #fff;*/
+/*  font-weight: 600;*/
+/*  cursor: pointer;*/
+/*  transition: all 0.3s ease;*/
+/*}*/
+/*.navbar .search-box .input-box{*/
+/*  position: absolute;*/
+/*  right: calc(100% - 40px);*/
+/*  top: 80px;*/
+/*  height: 60px;*/
+/*  width: 300px;*/
+/*  background: #3E8DA8;*/
+/*  border-radius: 6px;*/
+/*  opacity: 0;*/
+/*  pointer-events: none;*/
+/*  transition: all 0.4s ease;*/
+/*}*/
+/*.navbar.showInput .search-box .input-box{*/
+/*  top: 65px;*/
+/*  opacity: 1;*/
+/*  pointer-events: auto;*/
+/*  background: #3E8DA8;*/
+/*}*/
+/*.search-box .input-box::before{*/
+/*  content: '';*/
+/*  position: absolute;*/
+/*  height: 20px;*/
+/*  width: 20px;*/
+/*  background: #3E8DA8;*/
+/*  right: 10px;*/
+/*  top: -6px;*/
+/*  transform: rotate(45deg);*/
+/*}*/
+/*.search-box .input-box input{*/
+/*  position: absolute;*/
+/*  top: 50%;*/
+/*  left: 50%;*/
+/*  border-radius: 4px;*/
+/*  transform: translate(-50%, -50%);*/
+/*  height: 35px;*/
+/*  width: 280px;*/
+/*  outline: none;*/
+/*  padding: 0 15px;*/
+/*  font-size: 16px;*/
+/*  border: none;*/
+/*}*/
+
+/* ************************************************************ */

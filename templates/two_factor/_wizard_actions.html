@@ -1,0 +1,44 @@
+{% load i18n %}
+
+
+
+    <div class="d-flex justify-content-center mt-2 login_container">
+{#{% if cancel_url %}#}
+{#  <a href="{{ cancel_url }}"#}
+{#     class="float-left btn login_btn">{% trans "Cancel" %}</a>#}
+{#{% endif %}#}
+{% if wizard.steps.prev %}
+
+  <button name="wizard_goto_step" type="submit"
+          value="{{ wizard.steps.prev }}"
+          class="btn login_btn">{% trans "Back" %}</button>
+{% else %}
+{#  <button disabled name="" type="button" class="btn">{% trans "Back" %}</button>#}
+{% endif %}
+
+
+
+{% if wizard.steps.current == 'auth' %}
+
+{#<button type="submit" class="btn login_btn ">{% trans "Login" %}</button>#}
+
+<div class="d-flex justify-content-center mt-0 login_container">
+                <button type="submit" class="btn login_btn ">{% trans "Sign In" %}</button>
+            </div>
+
+
+
+{% else %}
+
+    <div style="margin: 5px"></div>
+<button type="submit" class="btn login_btn">{% trans "Next" %}</button>
+
+
+
+    </div>
+
+
+
+
+{% endif %}
+

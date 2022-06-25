@@ -1,0 +1,183 @@
+{%  extends 'main.html' %}
+{% load myfilters %}
+#{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+
+{% block title %}Account Overview{% endblock %}
+
+{% block breadcrumb %}
+
+<div class="breadcrumb-container">
+ {% include 'breadcrumb_home.html' %}
+    <ul class="breadcrumb">
+      <li class="breadcrumb--item">
+      </li>
+      <li class="breadcrumb--item active">Account Settings</li>
+    </ul>
+ </div>
+
+{% endblock breadcrumb %}
+
+
+{%  block content %}
+
+<h1 class ="headers">Account Details</h1>
+
+
+
+    <div class = "acc_1_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Personal Information</h1>
+        </div>
+
+        <div id="wrapper">
+            <div id="first"><i class="far fa-user"></i></div>
+            <div id="second">First Name:</div>
+            <div id="third">{{ user.first_name }}</div>
+            <div id="fname"><i class="fas fa-pen fa-fw"></i>Update</div>
+
+
+
+<!-- The Modal -->
+<div id="myModal1" class="modal1">
+    <div class = "acc_1_container">
+        <div class = "content_header_box">
+        <h1 class ="content_headers">Personal Information</h1>
+        </div>
+  <!-- Modal content -->
+  <div class="modal-content">
+      <form method="POST" action="">
+        {% csrf_token %}
+    <span class="close">&times;</span>
+ <div id="wrapper">
+
+
+
+            <div id="first_inner"><i class="far fa-user"></i></div>
+            <div id="second_inner">First Name:</div>
+{#            <input type="text" name="first_name"  placeholder={{ user.first_name }} class="input_fields" >#}
+{{ form.first_name|addclass:'MyClass' }}
+{# {{ form.first_name }}#}
+{#  {{ form.last_name }}#}
+{# {{ form.username }}#}
+     {% if form.errors %}
+    {% for error in form.first_name.errors %}
+        <p class="messages_error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+
+ <br>
+
+{#{% crispy form %}#}
+
+      </div>
+
+
+
+
+
+
+  {{ form.non_field_errors }}
+{#  <div class="fieldWrapper">#}
+{#    {{ form.first_name.errors }}#}
+{#    {{ form.first_name.label_tag }}#}
+{#    {{ form.first_name|addclass:'MyClass' }}#}
+{#    <span class="helptext">{{ form.first_name.help_text }}</span>#}
+{#  </div>#}
+
+
+      <div class="save_cancel_box">
+<div class="error-message" id="first_name_errors"></div>
+      <input class="save_btn" type="submit" value="Save" name="save_fname" onclick="fnameFunction()">
+      <span class="cancel_btn">Cancel</span>
+      </div>
+     </form>
+  </div>
+
+</div>
+</div>
+
+
+
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+<script>
+// Get the modal
+var modal1 = document.getElementById("myModal1");
+
+
+// Get the button that opens the modal
+var fname_btn = document.getElementById("fname");
+
+
+// Get the <span> element that closes the modal
+var fname_close = document.getElementsByClassName("close")[0];
+var cancel_fname_close = document.getElementsByClassName("cancel_btn")[0];
+
+
+
+// When the user clicks the button, open the modal
+
+
+{#           {% if devices.confirmed %}#}
+{#modal1.style.display = "block";#}
+{#              {% else %}#}
+{##}
+{#        {% endif %}#}
+
+//modal1.style.display = "block";
+
+fname_btn.onclick = function() {
+  modal1.style.display = "block";
+}
+
+
+// When the user clicks on <span> (x), close the modal
+fname_close.onclick = function() {
+  document.getElementById("first_name_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal1.style.display = "none";
+}
+cancel_fname_close.onclick = function() {
+  document.getElementById("first_name_errors").innerHTML = "";
+  //document.getElementsByName("first_name")[0].value = "";
+  modal1.style.display = "none";
+}
+
+
+
+
+
+{#function fnameFunction() {#}
+{#  let x = document.getElementsByName("first_name")[0].value;#}
+{#  let text;#}
+{#  text = "";#}
+{#  if (x === '' ||  x == null) {#}
+{#    text = "Input not valid";#}
+{#  }#}
+{#  document.getElementById("first_name_errors").innerHTML = text;#}
+{#}#}
+{#document.addEventListener('invalid', (function () {#}
+{#  return function (e) {#}
+{#    e.preventDefault();#}
+{#    document.getElementsByName("first_name").focus();#}
+{#  };#}
+{#})(), true);#}
+
+
+
+
+</script>
+
+{%  endblock %}

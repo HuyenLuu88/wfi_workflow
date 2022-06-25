@@ -1,0 +1,27 @@
+{%  extends 'main.html' %}
+{% load static %}
+
+{% block title %}WFI Workflow - Task 1{% endblock %}
+
+{% block breadcrumb %}
+
+<div class="breadcrumb-container">
+{% include 'breadcrumb_home.html' %}
+    <ul class="breadcrumb">
+      <li class="breadcrumb--item">
+      </li>
+      <li class="breadcrumb--item">
+        <a href="{% url 'tasks' %}" class="breadcrumb--link">Tasks</a>
+      </li>
+      <li class="breadcrumb--item active">Task1</li>
+    </ul>
+ </div>
+
+{% endblock breadcrumb %}
+
+
+{%  block content %}
+
+<h1 class ="headers">Task 1</h1>
+
+{%  endblock %}

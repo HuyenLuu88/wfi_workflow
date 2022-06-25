@@ -1,0 +1,15 @@
+{%  extends 'base.html' %}
+
+{% block title %}Account Activation{% endblock %}
+
+{%  block content %}
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">Account Activated</h3>
+				</div>
+                <span class="forgot_pass">The User Account for: {{user.first_name}} {{user.last_name}} ({{user.username}}) has already been activated.</span>
+                <div class="mt-1">
+                <div class="d-flex justify-content-center links">
+						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+				</div>
+                </div>
+{%  endblock content %}

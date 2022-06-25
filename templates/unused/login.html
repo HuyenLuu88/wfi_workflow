@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {% if request.path == adminpage %}
+        Admin Login
+    {% else %}
+        User Login
+    {% endif %}
+{% endblock %}
+
+
+{#{% block title %}User Login{% endblock %}#}
+
+{% block content %}
+    <div class="d-flex justify-content-center">
+
+
+        {% if request.path == adminpage %}
+            <h3 id="form-title">Admin Login</h3>
+        {% else %}
+            <h3 id="form-title">User Login</h3>
+        {% endif %}
+
+
+    </div>
+    <div class="d-flex justify-content-center form_container">
+        <form method="POST" action="">
+            {% csrf_token %}
+
+            <div align="center">
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" name="username" placeholder="Email" class="form-control">
+                </div>
+
+{#            <div class="input-group mb-2 autofocus">#}
+{#                <div class="input-group-append autofocus">#}
+{#                    <span class="input-group-text autofocus"><i class="fas fa-user"></i></span>#}
+{#                </div>#}
+{#                <input type="text" name="username" placeholder="Username" class="form-control">#}
+{#                {{ form.email }}#}
+{#            </div>#}
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input type="password" name="password" placeholder="Password" class="form-control">
+                </div>
+            </div>
+
+
+            {% if attempt_count > 1 %}
+
+                {% include 'recaptcha.html' %}
+
+            {% endif %}
+
+            <div class="d-flex justify-content-center mt-3 login_container">
+                <input class="btn login_btn" type="submit" value="Login">
+            </div>
+
+        </form>
+    </div>
+    {% include 'messages.html' %}
+
+
+    <div class="input-group mb-1">
+    </div>
+    <div class="mt-1">
+        {% if request.path == adminpage %}
+
+        {% else %}
+            <div class="d-flex justify-content-center links">
+                Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+            </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-center links">
+            Forgot Password? <a href="{% url 'request-password' %}" class="ml-2">Reset Password</a>
+        </div>
+
+
+    </div>
+
+{% endblock content %}

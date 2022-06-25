@@ -1,0 +1,65 @@
+{%  extends 'main.html' %}
+{#{% extends "two_factor/_base_focus.html" %}#}
+{% load i18n %}
+
+ {% block breadcrumb %}
+
+<div class="breadcrumb-container">
+ {% include 'breadcrumb_home.html' %}
+    <ul class="breadcrumb">
+      <li class="breadcrumb--item">
+      </li>
+      <li class="breadcrumb--item active">Backup Tokens</li>
+    </ul>
+ </div>
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+{#<h1 class ="headers">Account Details</h1>#}
+
+{#<h1 class ="security_headers">{% block title %}{% trans "Backup Tokens" %}{% endblock %}</h1><br>#}
+
+<h1 class ="headers">{% block title %}{% trans "Backup Tokens" %}{% endblock %}</h1>
+
+<div class="security_container" >
+
+
+
+  <p class ="twofa-para">{% blocktrans trimmed %}Backup tokens can be used when your primary and backup
+      phone numbers aren't available. The backup tokens below can be used
+      for login verification.</p>
+  <p class ="twofa-para">If you've used up all your backup tokens, you
+      can generate a new set of backup tokens. Only the backup tokens shown
+      below will be valid.{% endblocktrans %}</p> <br>
+
+  {% if device.token_set.count %}
+
+
+    <ul>
+      {% for token in device.token_set.all %}
+        <li class ="twofa-para-2"><p class ="twofa-para-2">{{ token.token }}</p></li>
+
+      {% endfor %}
+    </ul><br>
+    <p class ="twofa-para-2">{% blocktrans %}Please Save or Print these tokens and keep them somewhere safe.{% endblocktrans %}</p> <br>
+  {% else %}
+
+    <p class ="twofa-para-2">{% trans "You don't have any backup codes yet." %}</p> <br>
+  {% endif %}
+
+  <form method="post">{% csrf_token %}{{ form }}
+
+          <p class ="twofa-para-2"><button class="button_red" type="submit">{% trans "Generate Tokens" %}</button></p>
+{#<br class ="brmedium">#}
+{#          <p><a href="{% url 'two_factor:profile' %}"#}
+{#        class="button">{% trans "Back to Account Security" %}</a></p>#}
+
+{#    <a href="{% url 'two_factor:profile'%}"#}
+{#       class="float-right btn btn-link">{% trans "Back to Account Security" %}</a>#}
+
+  </form>
+ </div>
+{% endblock %}
